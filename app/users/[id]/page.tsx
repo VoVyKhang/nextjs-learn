@@ -2,17 +2,19 @@
 
 import { IUser } from '@/types/User';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function DetailUserPage() {
   const { id } = useParams();
   const [userDetails, setUserDetails] = useState<IUser>();
 
-  fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-    method: 'GET',
-  })
-    .then((res) => res.json())
-    .then((data) => setUserDetails(data));
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => setUserDetails(data));
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
